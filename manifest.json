@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Spawn Zombie Demo - Behavior",
+    "description": "Behavior Pack pour tuto spawn entity",
+    "uuid": "08c593d1-dbb8-4ff1-9316-f73db2b6c6aa",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 10]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "b5284dd1-f0b9-41ab-91d1-0dc6cd18d753",
+      "version": [1, 0, 0]
+    }
+  ]
+}

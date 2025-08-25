@@ -1,16 +1,22 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Spawn Zombie Demo - Behavior",
-    "description": "Behavior Pack pour tuto spawn entity",
-    "uuid": "08c593d1-dbb8-4ff1-9316-f73db2b6c6aa",
+    "name": "PXQ – Comportements",
+    "description": "Entités, composants, loot, etc. (pack tuto).",
+    "uuid": "9f3f6c0e-71d3-4a0b-9c94-3c993f7d6d7e",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 21, 10]
+    "min_engine_version": [1, 21, 0]
   },
   "modules": [
     {
       "type": "data",
-      "uuid": "b5284dd1-f0b9-41ab-91d1-0dc6cd18d753",
+      "uuid": "6b7f9a51-0c92-4dd3-98e3-975df2c7a3cc",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "c1cf7b9c-4ea7-4e3b-8f62-3a8fb9e4c9b9",
       "version": [1, 0, 0]
     }
   ]

@@ -3,20 +3,20 @@
   "header": {
     "name": "PXQ – Comportements",
     "description": "Entités, composants, loot, etc. (pack tuto).",
-    "uuid": "9f3f6c0e-71d3-4a0b-9c94-3c993f7d6d7e",
+    "uuid": "63532022-0cdd-4e55-923e-fb7b5760ca32",
     "version": [1, 0, 0],
     "min_engine_version": [1, 21, 0]
   },
   "modules": [
     {
       "type": "data",
-      "uuid": "6b7f9a51-0c92-4dd3-98e3-975df2c7a3cc",
+      "uuid": "5177d220-cd4e-4213-933c-1d358b2f1d94",
       "version": [1, 0, 0]
     }
   ],
   "dependencies": [
     {
-      "uuid": "c1cf7b9c-4ea7-4e3b-8f62-3a8fb9e4c9b9",
+      "uuid": "8d99a4de-eae1-4ec3-a165-6a72d3419e4d",
       "version": [1, 0, 0]
     }
   ]

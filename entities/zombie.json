@@ -8,7 +8,7 @@
       "is_summonable": true
     },
 "component_groups": {
-  // Déclenche la transformation en noyé si le zombie est sous l'eau
+/*// Déclenche la transformation en noyé si le zombie est sous l'eau */
   "minecraft:look_to_start_drowned_transformation": {
     "minecraft:environment_sensor": {
       "triggers": {
@@ -20,7 +20,7 @@
     }
   },
 
-  // Lance un compte à rebours de 30 secondes si le zombie reste sous l'eau
+/*// Lance un compte à rebours de 30 secondes si le zombie reste sous l'eau */
   "minecraft:start_drowned_transformation": {
     "minecraft:environment_sensor": {
       "triggers": {
@@ -39,7 +39,7 @@
     }
   },
 
-  // Transformation en noyé adulte après le timer
+/*// Transformation en noyé adulte après le timer */
   "minecraft:convert_to_drowned": {
     "minecraft:transformation": {
       "into": "minecraft:drowned<minecraft:as_adult>",
@@ -50,7 +50,7 @@
     "minecraft:is_shaking": {}
   },
 
-  // Transformation en noyé bébé si le zombie est petit
+  /* // Transformation en noyé bébé si le zombie est petit */
   "minecraft:convert_to_baby_drowned": {
     "minecraft:transformation": {
       "into": "minecraft:drowned<minecraft:as_baby>",
@@ -61,7 +61,7 @@
     "minecraft:is_shaking": {}
   },
 
-  // Comportement du zombie bébé
+ /*// Comportement du zombie bébé */
   "minecraft:zombie_baby": {
     "minecraft:experience_reward": {
       "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
@@ -71,7 +71,7 @@
     "minecraft:movement": { "value": 0.35 }
   },
 
-  // Comportement du zombie adulte
+ /*// Comportement du zombie adulte */
   "minecraft:zombie_adult": {
     "minecraft:experience_reward": {
       "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
@@ -93,7 +93,7 @@
     }
   },
 
-  // Permet au zombie bébé de chercher une monture (ex: poule)
+/*// Permet au zombie bébé de chercher une monture (ex: poule) */
   "minecraft:zombie_jockey": {
     "minecraft:behavior.find_mount": {
       "priority": 1,
@@ -103,21 +103,18 @@
     }
   },
 
-  // Permet au zombie d’avoir de l’équipement via une table de loot
+/*// Permet au zombie d’avoir de l’équipement via une table de loot */
   "minecraft:can_have_equipment": {
     "minecraft:equipment": {
       "table": "loot_tables/entities/zombie_equipment.json"
     }
   },
 
-  // Permet au zombie de briser les portes
+/*// Permet au zombie de briser les portes */
   "minecraft:can_break_doors": {
     "minecraft:annotation.break_door": {}
   }
 },
-
-
-
 
     "components": {
       "minecraft:is_hidden_when_invisible": {
@@ -125,7 +122,7 @@
       "minecraft:nameable": {
       },
 
-      // Zombie Components
+/*// Zombie Components */
       "minecraft:type_family": {
         "family": [ "zombie", "undead", "monster", "mob" ]
       },
@@ -404,7 +401,7 @@
       "despawn_from_distance": {}
      },
 
-      // Zombie Behaviors
+ /*// Zombie Behaviors */
       "minecraft:behavior.equip_item": {
         "priority": 2
       },
@@ -504,12 +501,12 @@
       }
     },
 "events": {
-  // Déclenché à l’apparition du zombie
+/*// Déclenché à l’apparition du zombie */
   "minecraft:entity_spawned": {
     "sequence": [
       {
         "randomize": [
-          // 94.5% de chance d’être un zombie adulte avec équipement
+        /*// 94.5% de chance d’être un zombie adulte avec équipement */
           {
             "weight": 380,
             "remove": {},
@@ -520,7 +517,7 @@
               ]
             }
           },
-          // 4.2% de chance d’être un zombie bébé avec équipement
+          /* // 4.2% de chance d’être un zombie bébé avec équipement */
           {
             "weight": 17,
             "remove": {},
@@ -531,7 +528,7 @@
               ]
             }
           },
-          // 0.7% de chance d’être un zombie bébé jockey avec équipement
+       /*// 0.7% de chance d’être un zombie bébé jockey avec équipement */
           {
             "weight": 3,
             "remove": {},
@@ -547,14 +544,14 @@
       },
       {
         "randomize": [
-          // 10% de chance de pouvoir briser les portes
+        /*// 10% de chance de pouvoir briser les portes */
           {
             "weight": 10,
             "add": {
               "component_groups": [ "minecraft:can_break_doors" ]
             }
           },
-          // 90% de chance de ne pas avoir cette capacité
+     /*// 90% de chance de ne pas avoir cette capacité */
           {
             "weight": 90
           }
@@ -563,21 +560,21 @@
     ]
   },
 
-  // Applique les composants d’un zombie adulte
+/*// Applique les composants d’un zombie adulte */
   "minecraft:as_adult": {
     "add": {
       "component_groups": [ "minecraft:zombie_adult" ]
     }
   },
 
-  // Applique les composants d’un zombie bébé
+/*// Applique les composants d’un zombie bébé */
   "minecraft:as_baby": {
     "add": {
       "component_groups": [ "minecraft:zombie_baby" ]
     }
   },
 
-  // Déclenche la transformation en noyé
+/*// Déclenche la transformation en noyé */
   "minecraft:start_transforming": {
     "add": {
       "component_groups": [ "minecraft:start_drowned_transformation" ]
@@ -587,7 +584,7 @@
     }
   },
 
-  // Annule la transformation si le zombie sort de l’eau
+/*// Annule la transformation si le zombie sort de l’eau */
   "minecraft:stop_transforming": {
     "add": {
       "component_groups": [ "minecraft:look_to_start_drowned_transformation" ]
@@ -597,11 +594,11 @@
     }
   },
 
-  // Transforme le zombie en noyé adulte ou bébé selon sa taille
+  /* // Transforme le zombie en noyé adulte ou bébé selon sa taille */
   "minecraft:convert_to_drowned": {
     "sequence": [
       {
-        // Si le zombie n’est pas bébé → noyé adulte
+  /*// Si le zombie n’est pas bébé → noyé adulte */
         "filters": {
           "test": "has_component",
           "operator": "!=",
@@ -615,7 +612,7 @@
         }
       },
       {
-        // Si le zombie est bébé → noyé bébé
+        /* // Si le zombie est bébé → noyé bébé */
         "filters": {
           "test": "has_component",
           "value": "minecraft:is_baby"

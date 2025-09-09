@@ -7,117 +7,117 @@
       "is_spawnable": true,
       "is_summonable": true
     },
-    "component_groups": {
-      "minecraft:look_to_start_drowned_transformation": {
-        "minecraft:environment_sensor": {
-          "triggers": {
-            "filters": {
-              "test": "is_underwater", "subject": "self", "operator": "==", "value": true
-            },
-            "event": "minecraft:start_transforming"
-          }
-        }
-      },
-      "minecraft:start_drowned_transformation": {
-        "minecraft:environment_sensor": {
-          "triggers": {
-            "filters": {
-              "test": "is_underwater", "subject": "self", "operator": "==", "value": false
-            },
-            "event": "minecraft:stop_transforming"
-          }
+"component_groups": {
+  // Déclenche la transformation en noyé si le zombie est sous l'eau
+  "minecraft:look_to_start_drowned_transformation": {
+    "minecraft:environment_sensor": {
+      "triggers": {
+        "filters": {
+          "test": "is_underwater", "subject": "self", "operator": "==", "value": true
         },
-        "minecraft:timer": {
-          "looping": false,
-          "time": 30,
-          "time_down_event": {
-            "event": "minecraft:convert_to_drowned"
-          }
-        }
-      },
+        "event": "minecraft:start_transforming"
+      }
+    }
+  },
 
-      "minecraft:convert_to_drowned": {
-        "minecraft:transformation": {
-          "into": "minecraft:drowned<minecraft:as_adult>",
-          "transformation_sound": "convert_to_drowned",
-          "drop_equipment": true,
-          "delay": {
-            "value": 15
-          }
+  // Lance un compte à rebours de 30 secondes si le zombie reste sous l'eau
+  "minecraft:start_drowned_transformation": {
+    "minecraft:environment_sensor": {
+      "triggers": {
+        "filters": {
+          "test": "is_underwater", "subject": "self", "operator": "==", "value": false
         },
-        "minecraft:is_shaking": {
-        }
-      },
-
-      "minecraft:convert_to_baby_drowned": {
-        "minecraft:transformation": {
-          "into": "minecraft:drowned<minecraft:as_baby>",
-          "transformation_sound": "convert_to_drowned",
-          "drop_equipment": true,
-          "delay": {
-            "value": 15
-          }
-        },
-        "minecraft:is_shaking": {
-        }
-      },
-
-      "minecraft:zombie_baby": {
-        "minecraft:experience_reward": {
-          "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
-        },
-        "minecraft:is_baby": {},
-        "minecraft:scale": {
-          "value": 0.5
-        },
-        "minecraft:movement": {
-          "value": 0.35
-        }
-      },
-
-      "minecraft:zombie_adult": {
-        "minecraft:experience_reward": {
-          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
-        },
-        "minecraft:movement": {
-          "value": 0.23
-        },
-        "minecraft:rideable": {
-          "seat_count": 1,
-          "family_types": [
-            "zombie"
-          ],
-          "seats": {
-            "position": [ 0.0, 1.175, -0.35 ],
-            "lock_rider_rotation": 0
-          }
-        },
-        "minecraft:behavior.mount_pathing": {
-          "priority": 2,
-          "speed_multiplier": 1.25,
-          "target_dist": 0.0,
-          "track_target": true
-        }
-      },
-
-      "minecraft:zombie_jockey": {
-        "minecraft:behavior.find_mount": {
-          "priority": 1,
-          "within_radius": 16,
-          "start_delay": 15,
-          "max_failed_attempts": 20
-        }
-      },
-      "minecraft:can_have_equipment": {
-        "minecraft:equipment": {
-          "table": "loot_tables/entities/zombie_equipment.json"
-        }
-      },
-      "minecraft:can_break_doors": {
-        "minecraft:annotation.break_door": {
-        }
+        "event": "minecraft:stop_transforming"
       }
     },
+    "minecraft:timer": {
+      "looping": false,
+      "time": 30,
+      "time_down_event": {
+        "event": "minecraft:convert_to_drowned"
+      }
+    }
+  },
+
+  // Transformation en noyé adulte après le timer
+  "minecraft:convert_to_drowned": {
+    "minecraft:transformation": {
+      "into": "minecraft:drowned<minecraft:as_adult>",
+      "transformation_sound": "convert_to_drowned",
+      "drop_equipment": true,
+      "delay": { "value": 15 }
+    },
+    "minecraft:is_shaking": {}
+  },
+
+  // Transformation en noyé bébé si le zombie est petit
+  "minecraft:convert_to_baby_drowned": {
+    "minecraft:transformation": {
+      "into": "minecraft:drowned<minecraft:as_baby>",
+      "transformation_sound": "convert_to_drowned",
+      "drop_equipment": true,
+      "delay": { "value": 15 }
+    },
+    "minecraft:is_shaking": {}
+  },
+
+  // Comportement du zombie bébé
+  "minecraft:zombie_baby": {
+    "minecraft:experience_reward": {
+      "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
+    },
+    "minecraft:is_baby": {},
+    "minecraft:scale": { "value": 0.5 },
+    "minecraft:movement": { "value": 0.35 }
+  },
+
+  // Comportement du zombie adulte
+  "minecraft:zombie_adult": {
+    "minecraft:experience_reward": {
+      "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+    },
+    "minecraft:movement": { "value": 0.23 },
+    "minecraft:rideable": {
+      "seat_count": 1,
+      "family_types": [ "zombie" ],
+      "seats": {
+        "position": [ 0.0, 1.175, -0.35 ],
+        "lock_rider_rotation": 0
+      }
+    },
+    "minecraft:behavior.mount_pathing": {
+      "priority": 2,
+      "speed_multiplier": 1.25,
+      "target_dist": 0.0,
+      "track_target": true
+    }
+  },
+
+  // Permet au zombie bébé de chercher une monture (ex: poule)
+  "minecraft:zombie_jockey": {
+    "minecraft:behavior.find_mount": {
+      "priority": 1,
+      "within_radius": 16,
+      "start_delay": 15,
+      "max_failed_attempts": 20
+    }
+  },
+
+  // Permet au zombie d’avoir de l’équipement via une table de loot
+  "minecraft:can_have_equipment": {
+    "minecraft:equipment": {
+      "table": "loot_tables/entities/zombie_equipment.json"
+    }
+  },
+
+  // Permet au zombie de briser les portes
+  "minecraft:can_break_doors": {
+    "minecraft:annotation.break_door": {}
+  }
+},
+
+
+
 
     "components": {
       "minecraft:is_hidden_when_invisible": {
@@ -503,128 +503,133 @@
       "minecraft:conditional_bandwidth_optimization": {
       }
     },
-
-    "events": {
-      "minecraft:entity_spawned": {
-        "sequence": [
+"events": {
+  // Déclenché à l’apparition du zombie
+  "minecraft:entity_spawned": {
+    "sequence": [
+      {
+        "randomize": [
+          // 94.5% de chance d’être un zombie adulte avec équipement
           {
-            "randomize": [
-              {
-                "weight": 380,
-                "remove": {},
-                "add": {
-                  "component_groups": [
-                    "minecraft:zombie_adult",
-                    "minecraft:can_have_equipment"
-                  ]
-                }
-              },
-              {
-                "weight": 17,
-                "remove": {
-                },
-                "add": {
-                  "component_groups": [
-                    "minecraft:zombie_baby",
-                    "minecraft:can_have_equipment"
-                  ]
-
-                }
-              },
-              {
-                "weight": 3,
-                "remove": {
-                },
-                "add": {
-                  "component_groups": [
-                    "minecraft:zombie_baby",
-                    "minecraft:zombie_jockey",
-                    "minecraft:can_have_equipment"
-                  ]
-                }
-              }
-            ]
+            "weight": 380,
+            "remove": {},
+            "add": {
+              "component_groups": [
+                "minecraft:zombie_adult",
+                "minecraft:can_have_equipment"
+              ]
+            }
           },
+          // 4.2% de chance d’être un zombie bébé avec équipement
           {
-            "randomize": [
-              {
-                "weight": 10,
-                "add": {
-                  "component_groups": [ "minecraft:can_break_doors" ]
-                }
-              },
-              {
-                "weight": 90
-              }
-            ]
+            "weight": 17,
+            "remove": {},
+            "add": {
+              "component_groups": [
+                "minecraft:zombie_baby",
+                "minecraft:can_have_equipment"
+              ]
+            }
+          },
+          // 0.7% de chance d’être un zombie bébé jockey avec équipement
+          {
+            "weight": 3,
+            "remove": {},
+            "add": {
+              "component_groups": [
+                "minecraft:zombie_baby",
+                "minecraft:zombie_jockey",
+                "minecraft:can_have_equipment"
+              ]
+            }
           }
         ]
       },
-      "minecraft:as_adult": {
-        "add": {
-          "component_groups": [
-            "minecraft:zombie_adult"
-          ]
-        }
-      },
-      "minecraft:as_baby": {
-        "add": {
-          "component_groups": [
-            "minecraft:zombie_baby"
-          ]
-        }
-      },
-      "minecraft:start_transforming": {
-        "add": {
-          "component_groups": [
-            "minecraft:start_drowned_transformation"
-          ]
-        },
-        "remove": {
-          "component_groups": [ "minecraft:look_to_start_drowned_transformation" ]
-        }
-      },
-      "minecraft:stop_transforming": {
-        "add": {
-          "component_groups": [
-            "minecraft:look_to_start_drowned_transformation"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "minecraft:start_drowned_transformation"
-          ]
-        }
-      },
-      "minecraft:convert_to_drowned": {
-        "sequence": [
+      {
+        "randomize": [
+          // 10% de chance de pouvoir briser les portes
           {
-            "filters": {
-              "test": "has_component",
-              "operator": "!=",
-              "value": "minecraft:is_baby"
-            },
+            "weight": 10,
             "add": {
-              "component_groups": [ "minecraft:convert_to_drowned" ]
-            },
-            "remove": {
-              "component_groups": [ "minecraft:start_drowned_transformation" ]
+              "component_groups": [ "minecraft:can_break_doors" ]
             }
           },
+          // 90% de chance de ne pas avoir cette capacité
           {
-            "filters": {
-              "test": "has_component",
-              "value": "minecraft:is_baby"
-            },
-            "add": {
-              "component_groups": [ "minecraft:convert_to_baby_drowned" ]
-            },
-            "remove": {
-              "component_groups": [ "minecraft:start_drowned_transformation" ]
-            }
+            "weight": 90
           }
         ]
       }
+    ]
+  },
+
+  // Applique les composants d’un zombie adulte
+  "minecraft:as_adult": {
+    "add": {
+      "component_groups": [ "minecraft:zombie_adult" ]
     }
+  },
+
+  // Applique les composants d’un zombie bébé
+  "minecraft:as_baby": {
+    "add": {
+      "component_groups": [ "minecraft:zombie_baby" ]
+    }
+  },
+
+  // Déclenche la transformation en noyé
+  "minecraft:start_transforming": {
+    "add": {
+      "component_groups": [ "minecraft:start_drowned_transformation" ]
+    },
+    "remove": {
+      "component_groups": [ "minecraft:look_to_start_drowned_transformation" ]
+    }
+  },
+
+  // Annule la transformation si le zombie sort de l’eau
+  "minecraft:stop_transforming": {
+    "add": {
+      "component_groups": [ "minecraft:look_to_start_drowned_transformation" ]
+    },
+    "remove": {
+      "component_groups": [ "minecraft:start_drowned_transformation" ]
+    }
+  },
+
+  // Transforme le zombie en noyé adulte ou bébé selon sa taille
+  "minecraft:convert_to_drowned": {
+    "sequence": [
+      {
+        // Si le zombie n’est pas bébé → noyé adulte
+        "filters": {
+          "test": "has_component",
+          "operator": "!=",
+          "value": "minecraft:is_baby"
+        },
+        "add": {
+          "component_groups": [ "minecraft:convert_to_drowned" ]
+        },
+        "remove": {
+          "component_groups": [ "minecraft:start_drowned_transformation" ]
+        }
+      },
+      {
+        // Si le zombie est bébé → noyé bébé
+        "filters": {
+          "test": "has_component",
+          "value": "minecraft:is_baby"
+        },
+        "add": {
+          "component_groups": [ "minecraft:convert_to_baby_drowned" ]
+        },
+        "remove": {
+          "component_groups": [ "minecraft:start_drowned_transformation" ]
+        }
+      }
+    ]
+  }
+}
+
   }
 }
